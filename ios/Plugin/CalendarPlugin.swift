@@ -104,8 +104,8 @@ public class CalendarPlugin: CAPPlugin, EKEventEditViewDelegate {
             eventEditViewController.eventStore = store
             eventEditViewController.editViewDelegate = self
             self.bridge?.viewController?.present(eventEditViewController, animated: true, completion: nil)
-
         }
+
         call.resolve(["success": true])
     }
 }
