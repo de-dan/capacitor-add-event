@@ -32,7 +32,7 @@ public class CalendarPlugin: CAPPlugin, EKEventEditViewDelegate {
     }
 
     @objc func hasPermission(_ call: CAPPluginCall) {
-        
+
         let authorizationStatus = EKEventStore.authorizationStatus(for: .event)
 
         call.resolve([
@@ -43,7 +43,7 @@ public class CalendarPlugin: CAPPlugin, EKEventEditViewDelegate {
     @objc func requestPermission(_ call: CAPPluginCall) {
         store.reset()
         if #available(iOS 17.0, *) {
-            store.requestFullAccessToEvents() { granted, error in
+            store.requestFullAccessToEvents { granted, error in
                 if granted && error == nil {
                     call.resolve([
                         "value": granted
@@ -80,7 +80,7 @@ public class CalendarPlugin: CAPPlugin, EKEventEditViewDelegate {
         let urlString = call.getString("url", "")
         let url = URL(string: urlString)
         let location = call.getString("location", "")
-        
+
         var calendar = self.store.defaultCalendarForNewEvents
         if let identifier = call.getString("calendarId") {
             if let selectedCalendar = self.store.calendar(withIdentifier: identifier) {
