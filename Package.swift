@@ -19,7 +19,12 @@ let package = Package(
                 .product(name: "Capacitor", package: "capacitor-swift-pm"),
                 .product(name: "Cordova", package: "capacitor-swift-pm")
             ],
-            path: "ios/Sources/CalendarPlugin"),
+            path: "ios/Sources/CalendarPlugin",
+            linkerSettings: [
+                .linkedFramework("EventKit"),
+                .linkedFramework("EventKitUI")
+            ],
+        ),
         .testTarget(
             name: "CalendarPluginTests",
             dependencies: ["CalendarPlugin"],
