@@ -1,6 +1,6 @@
 {
   "name": "capacitor-add-event",
-  "version": "7.1.0",
+  "version": "7.1.1",
   "description": "Allows to add events to your calendar",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
