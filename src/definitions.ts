@@ -1,6 +1,4 @@
 export interface CalendarPlugin {
-  hasPermission(): Promise<boolean>;
-  requestPermission(): Promise<void>;
   createEvent(options: CalendarEventOptions): Promise<any>;
 }
 

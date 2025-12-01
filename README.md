@@ -13,8 +13,6 @@ npx cap sync
 
 <docgen-index>
 
-* [`hasPermission()`](#haspermission)
-* [`requestPermission()`](#requestpermission)
 * [`createEvent(...)`](#createevent)
 * [Interfaces](#interfaces)
 
@@ -22,26 +20,6 @@ npx cap sync
 
 <docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
-
-### hasPermission()
-
-```typescript
-hasPermission() => Promise<boolean>
-```
-
-**Returns:** <code>Promise&lt;boolean&gt;</code>
-
---------------------
-
-
-### requestPermission()
-
-```typescript
-requestPermission() => Promise<void>
-```
-
---------------------
-
 
 ### createEvent(...)
 

@@ -12,20 +12,8 @@ public class CalendarPlugin: CAPPlugin, CAPBridgedPlugin, EKEventEditViewDelegat
     public let identifier = "CalendarPlugin"
     public let jsName = "Calendar"
     public let pluginMethods: [CAPPluginMethod] = [
-        CAPPluginMethod(name: "hasPermission", returnType: CAPPluginReturnPromise),
-        CAPPluginMethod(name: "requestPermission", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "createEvent", returnType: CAPPluginReturnPromise),
-        CAPPluginMethod(name: "echo", returnType: CAPPluginReturnPromise)
     ]
-
-    private let implementation = Calendar()
-
-    @objc func echo(_ call: CAPPluginCall) {
-        let value = call.getString("value") ?? ""
-        call.resolve([
-            "value": implementation.echo(value)
-        ])
-    }
 
     let store = EKEventStore()
 
@@ -38,46 +26,6 @@ public class CalendarPlugin: CAPPlugin, CAPBridgedPlugin, EKEventEditViewDelegat
         default: self.bridge?.triggerWindowJSEvent(eventName: "CalendarCreatedEvent", data: "{ 'action': 'unknown' }")
         }
         controller.dismiss(animated: true)
-    }
-
-    @objc func hasPermission(_ call: CAPPluginCall) {
-
-        let authorizationStatus = EKEventStore.authorizationStatus(for: .event)
-
-        call.resolve([
-            "value": authorizationStatus
-        ])
-    }
-
-    @objc func requestPermission(_ call: CAPPluginCall) {
-        store.reset()
-        if #available(iOS 17.0, *) {
-            store.requestFullAccessToEvents { granted, error in
-                if granted && error == nil {
-                    call.resolve([
-                        "value": granted
-                    ])
-                } else {
-                    let msg = "EK access denied: \(String(describing: error?.localizedDescription))"
-                    print(msg)
-                    call.reject(msg)
-                }
-                return
-            }
-        } else {
-            store.requestAccess(to: .event) { granted, error in
-                if granted && error == nil {
-                    call.resolve([
-                        "value": granted
-                    ])
-                } else {
-                    let msg = "EK access denied: \(String(describing: error?.localizedDescription))"
-                    print(msg)
-                    call.reject(msg)
-                }
-                return
-            }
-        }
     }
 
     @objc func createEvent(_ call: CAPPluginCall) {
